@@ -35,7 +35,7 @@ class _SignupState extends State<Signup> {
         final snackBar = SnackBar(
           elevation: 0,
           behavior: SnackBarBehavior.floating,
-          backgroundColor: Color.fromARGB(0, 215, 94, 94),
+          backgroundColor: const Color.fromARGB(0, 215, 94, 94),
           content: AwesomeSnackbarContent(
             title: 'On Snap!',
             message: e.toString(),
@@ -78,7 +78,7 @@ class _SignupState extends State<Signup> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0XFFF5F5F5),
+      backgroundColor: const Color(0XFFF5F5F5),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -146,7 +146,7 @@ class _SignupState extends State<Signup> {
                                     bol = false;
                                   });
                                 }),
-                                icon: Icon(Icons.remove_red_eye))),
+                                icon: const Icon(Icons.remove_red_eye))),
                       ),
                     ),
                   ),
@@ -207,7 +207,7 @@ class _SignupState extends State<Signup> {
                         setState(() {
                           loding = true;
                         });
-                        Future.delayed(Duration(seconds: 3), () {
+                        Future.delayed(const Duration(seconds: 3), () {
                           setState(() {
                             loding = false;
                           });
@@ -215,7 +215,7 @@ class _SignupState extends State<Signup> {
                       }
                     }),
                     child: Container(
-                      padding: EdgeInsets.all(15),
+                      padding: const EdgeInsets.all(15),
                       decoration: BoxDecoration(
                           color: Colors.amber[700],
                           borderRadius: BorderRadius.circular(20)),
@@ -239,7 +239,7 @@ class _SignupState extends State<Signup> {
                       child: Text(
                         "Sign in here",
                         style: GoogleFonts.robotoMono(
-                            color: Color(0XFF0D47A1),
+                            color: const Color(0XFF0D47A1),
                             fontSize: 15,
                             fontWeight: FontWeight.bold),
                       ),

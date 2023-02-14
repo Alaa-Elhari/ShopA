@@ -1,48 +1,82 @@
-import 'dart:convert';
-
-import 'package:flutter/material.dart';
-import 'dart:ui';
-import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:openfoodfacts/model/IngredientsAnalysisTags.dart';
+import 'package:openfoodfacts/model/parameter/IngredientsAnalysisParameter.dart';
+import 'package:openfoodfacts/openfoodfacts.dart';
 
 class Products extends StatefulWidget {
+  const Products({super.key});
+
   @override
   State<Products> createState() => _ProductsState();
 }
 
 class _ProductsState extends State<Products> {
-  void getdata() async {
-    http.Response response = await http.get(Uri.parse(
-        'https://world.openfoodfacts.org/api/v0/product/737628064502.json'));
-    Map data = jsonDecode(response.body);
-    print(data);
+  late SearchResult result;
+
+  Future<List<Product>?> fetchVeganProducts() async {
+    ProductSearchQueryConfiguration configuration =
+        ProductSearchQueryConfiguration(
+      parametersList: <Parameter>[
+        const IngredientsAnalysisParameter(
+          veganStatus: VeganStatus.VEGAN,
+        ),
+      ],
+    );
+    result = await OpenFoodAPIClient.searchProducts(
+      const User(userId: 'alaaxelhari', password: '2003alaa'),
+      configuration,
+    );
+
+    print("${result.products!.length}");
   }
 
   @override
   void initState() {
     super.initState();
-    getdata();
+    fetchVeganProducts();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: StaggeredGridView.countBuilder(
-          crossAxisCount: 2,
-          itemCount: 100,
-          mainAxisSpacing: 16,
-          crossAxisSpacing: 16,
-          itemBuilder: ((context, index) {
-            return Container(
-              height: 200,
-              width: 200,
-              color: Colors.red,
-            );
-          }),
-          staggeredTileBuilder: (index) => StaggeredTile.fit(1)),
+    return FutureBuilder(
+      future: fetchVeganProducts(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const CircularProgressIndicator.adaptive();
+        }
+        if (snapshot.hasError) {
+          return Text(snapshot.error.toString());
+        } else {
+          return Expanded(
+            child: StaggeredGridView.countBuilder(
+                crossAxisCount: 2,
+                itemCount: result.products!.length,
+                mainAxisSpacing: 16,
+                crossAxisSpacing: 16,
+                itemBuilder: ((context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Card(
+                      shadowColor: Colors.black,
+                      child: Column(
+                        children: [
+                          Image.network(
+                            '${result.products?[index].imageFrontUrl}',
+                          ),
+                          Text('${result.products?[index].productName}'),
+                          IconButton(
+                              onPressed: () {},
+                              icon: const Icon(Icons.rectangle))
+                        ],
+                      ),
+                    ),
+                  );
+                }),
+                staggeredTileBuilder: (index) => const StaggeredTile.fit(1)),
+          );
+        }
+      },
     );
   }
 }

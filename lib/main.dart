@@ -4,6 +4,7 @@ import 'package:loginin/screen/Signup.dart';
 import 'package:loginin/screen/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:loginin/screen/scannerproduct.dart';
+import 'package:loginin/tools/searchScreen.dart';
 
 import 'Auth.dart';
 
@@ -24,13 +25,15 @@ class Screen extends StatelessWidget {
       theme: ThemeData(
           primarySwatch: Colors.grey,
           primaryColor: Colors.black,
-          textTheme: TextTheme(bodyText2: TextStyle(color: Colors.black))),
+          textTheme:
+              const TextTheme(bodyText2: TextStyle(color: Colors.black))),
       routes: {
         '/': (context) => const Auth(),
         'HomeScreen': (context) => const HomeScreen(),
         'signupScreen': (context) => const Signup(),
         'loginScreen': (context) => const login_screen(),
-        'ScanProduct': (context) => scan()
+        'ScanProduct': (context) => const pagescanproduct(),
+        'ScreenSearch': (context) => const FoodListPage(),
       },
     );
   }

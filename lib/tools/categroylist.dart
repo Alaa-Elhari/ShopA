@@ -9,9 +9,9 @@ class categorylist extends StatefulWidget {
 
 class _categorylistState extends State<categorylist> {
   final categorylist = [
-    'Clothes',
+    'All',
     'Food',
-    'Phone',
+    'Vegan',
     'Drinks',
     'Beauti',
     'lolo',
@@ -20,7 +20,7 @@ class _categorylistState extends State<categorylist> {
   int cur = 0;
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 20,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
@@ -30,20 +30,18 @@ class _categorylistState extends State<categorylist> {
                   cur = index;
                 });
               }),
-              child: Container(
-                child: Text(
-                  categorylist[index],
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight:
-                          cur == index ? FontWeight.bold : FontWeight.normal,
-                      color: cur == index
-                          ? Theme.of(context).primaryColor
-                          : Colors.lightGreen),
-                ),
+              child: Text(
+                categorylist[index],
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight:
+                        cur == index ? FontWeight.bold : FontWeight.normal,
+                    color: cur == index
+                        ? Theme.of(context).primaryColor
+                        : Colors.lightGreen),
               ),
             )),
-        separatorBuilder: ((_, index) => SizedBox(
+        separatorBuilder: ((_, index) => const SizedBox(
               width: 10,
             )),
         itemCount: categorylist.length,

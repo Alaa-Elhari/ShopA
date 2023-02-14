@@ -1,8 +1,5 @@
-import 'dart:math';
-
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -39,7 +36,7 @@ class _login_screenState extends State<login_screen> {
       final snackBar = SnackBar(
         elevation: 0,
         behavior: SnackBarBehavior.floating,
-        backgroundColor: Color.fromARGB(0, 215, 94, 94),
+        backgroundColor: const Color.fromARGB(0, 215, 94, 94),
         content: AwesomeSnackbarContent(
           title: 'On Snap!',
           message: e.toString(),
@@ -66,7 +63,7 @@ class _login_screenState extends State<login_screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0XFFF5F5F5),
+      backgroundColor: const Color(0XFFF5F5F5),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -132,7 +129,7 @@ class _login_screenState extends State<login_screen> {
                                     bol = false;
                                   });
                                 }),
-                                icon: Icon(Icons.remove_red_eye)),
+                                icon: const Icon(Icons.remove_red_eye)),
                           )),
                     ),
                   ),
@@ -149,7 +146,7 @@ class _login_screenState extends State<login_screen> {
                       setState(() {
                         loding = true;
                       });
-                      Future.delayed(Duration(seconds: 3), () {
+                      Future.delayed(const Duration(seconds: 3), () {
                         setState(() {
                           loding = false;
                         });
@@ -189,7 +186,7 @@ class _login_screenState extends State<login_screen> {
                       child: Text(
                         "Sign Up Now",
                         style: GoogleFonts.robotoMono(
-                            color: Color(0XFF0D47A1),
+                            color: const Color(0XFF0D47A1),
                             fontSize: 15,
                             fontWeight: FontWeight.bold),
                       ),
